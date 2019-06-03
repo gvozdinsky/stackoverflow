@@ -6,7 +6,7 @@
          :class="{ accepted: answer.is_accepted }"
          class="answer"
     >
-    </div>>
+    </div>
   </div>
 </template>
 
