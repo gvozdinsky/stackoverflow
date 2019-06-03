@@ -4,7 +4,7 @@ const path = '/questions'
 
 export default {
   fetchAll (tag) {
-    const finalPath = tag ? `${path}?tags_like=${tag}` : path;
+    const finalPath = tag ? `${path}?tags_like=${tag}` : path
     return httpClient.get(finalPath)
   },
 

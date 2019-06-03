@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import TagList from '@/components/tag/TagList'
 
 export default {
@@ -16,12 +16,6 @@ export default {
   },
   computed: {
     ...mapState('tags', ['tags'])
-  },
-  methods: {
-    ...mapActions('tags', ['getTags'])
-  },
-  mounted () {
-    this.getTags()
   }
 }
 </script>

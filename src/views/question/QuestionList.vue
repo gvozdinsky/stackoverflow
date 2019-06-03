@@ -7,7 +7,7 @@
 
 <script>
 import QuestionList from '@/components/question/QuestionList'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'questions',
@@ -22,13 +22,6 @@ export default {
   },
   computed: {
     ...mapState('questions', ['questions'])
-  },
-  methods: {
-    ...mapActions('questions', ['getQuestions'])
-  },
-  mounted () {
-    this.getQuestions({ tag: this.tag })
   }
-
 }
 </script>

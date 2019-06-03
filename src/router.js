@@ -4,6 +4,7 @@ import Home from '@/views/Home'
 import TagList from '@/views/tag/TagList'
 import QuestionList from '@/views/question/QuestionList'
 import QuestionDetail from '@/views/question/QuestionDetail'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -19,24 +20,43 @@ export default new Router({
     {
       path: '/tags',
       name: 'tag:list',
-      component: TagList
+      component: TagList,
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('tags/getTags')
+        next()
+      }
     },
     {
       path: '/questions',
       name: 'question:list',
-      component: QuestionList
+      component: QuestionList,
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('questions/getQuestions', { tag: to.params.tag })
+        next()
+      }
     },
     {
       path: '/questions/:id',
       name: 'question:detail',
       component: QuestionDetail,
-      props: true
+      beforeEnter: async (to, from, next) => {
+        const { id: questionId } = to.params
+        await Promise.all([
+          store.dispatch('questions/getQuestion', questionId),
+          store.dispatch('answers/getAnswersForQuestion', questionId)
+        ])
+        next()
+      }
     },
     {
       path: '/questions/tagged/:tag',
       name: 'question:tagged',
       component: QuestionList,
-      props: true
+      props: true,
+      beforeEnter: async (to, from, next) => {
+        await store.dispatch('questions/getQuestions', { tag: to.params.tag })
+        next()
+      }
     }
   ]
 })
