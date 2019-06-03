@@ -1,24 +1,25 @@
 import TagService from '@/services/TagService'
+import { TAGS_SET_MUTATION } from '@/store/mutationTypes'
+import { TAGS_GET_ACTION } from '@/store/actionTypes'
 
 export const INITIAL_STATE = {
   tags: []
 }
 
 export const mutations = {
-  setTags (state, payload) {
+  [TAGS_SET_MUTATION] (state, payload) {
     state.tags = payload
   }
 }
 
 export const actions = {
-  async getTags ({ commit }) {
+  async [TAGS_GET_ACTION] ({ commit }) {
     const { data } = await TagService.fetchAll()
-    commit('setTags', data)
+    commit(TAGS_SET_MUTATION, data)
   }
 }
 
 export default {
-  namespaced: true,
   state: INITIAL_STATE,
   actions,
   mutations

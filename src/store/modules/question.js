@@ -1,4 +1,6 @@
 import QuestionService from '@/services/QuestionService'
+import { QUESTION_SET_MUTATION, QUESTIONS_SET_MUTATION } from '@/store/mutationTypes'
+import { QUESTION_GET_ACTION, QUESTIONS_GET_ACTION } from '@/store/actionTypes'
 
 export const INITIAL_STATE = {
   questions: [],
@@ -6,27 +8,26 @@ export const INITIAL_STATE = {
 }
 
 export const mutations = {
-  setQuestions (state, payload) {
+  [QUESTIONS_SET_MUTATION] (state, payload) {
     state.questions = payload
   },
-  setQuestion (state, payload) {
+  [QUESTION_SET_MUTATION] (state, payload) {
     state.question = payload
   }
 }
 
 export const actions = {
-  async getQuestions ({ commit }, filter = { tag: '' }) {
+  async [QUESTIONS_GET_ACTION] ({ commit }, filter = { tag: '' }) {
     const { data } = await QuestionService.fetchAll(filter.tag)
-    commit('setQuestions', data)
+    commit(QUESTIONS_SET_MUTATION, data)
   },
-  async getQuestion ({ commit }, id) {
+  async [QUESTION_GET_ACTION] ({ commit }, id) {
     const { data } = await QuestionService.fetchOne(id)
-    commit('setQuestion', data)
+    commit(QUESTION_SET_MUTATION, data)
   }
 }
 
 export default {
-  namespaced: true,
   state: INITIAL_STATE,
   actions,
   mutations

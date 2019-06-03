@@ -1,24 +1,25 @@
 import AnswerService from '@/services/AnswerService'
+import { ANSWERS_SET_MUTATION } from '@/store/mutationTypes'
+import { ANSWERS_FOR_QUESTION_GET_ACTION } from '@/store/actionTypes'
 
 export const INITIAL_STATE = {
   answers: []
 }
 
 export const mutations = {
-  setAnswers (state, payload) {
+  [ANSWERS_SET_MUTATION] (state, payload) {
     state.answers = payload
   }
 }
 
 export const actions = {
-  async getAnswersForQuestion ({ commit }, questionId) {
+  async [ANSWERS_FOR_QUESTION_GET_ACTION] ({ commit }, questionId) {
     const { data } = await AnswerService.fetchAllForQuestion(questionId)
-    commit('setAnswers', data)
+    commit(ANSWERS_SET_MUTATION, data)
   }
 }
 
 export default {
-  namespaced: true,
   state: INITIAL_STATE,
   actions,
   mutations
