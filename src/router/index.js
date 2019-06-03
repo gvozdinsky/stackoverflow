@@ -2,31 +2,34 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
 import NotFound from '@/views/NotFound'
-import store from '@/store'
 import NProgress from 'nprogress'
+import questionRouter from './question'
+import tagRouter from './tag'
 
 Vue.use(Router)
 
-const router = new Router({
+const index = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '',
-      component: CommonLayout,
-      children: [
-        {
-          path: '/home',
-          name: 'home',
-          component: Home
-        },
-      ]
-    },
+    // {
+    //   path: '',
+    //   component: CommonLayout,
+    //   children: [
+    //     {
+    //       path: '/home',
+    //       name: 'home',
+    //       component: Home
+    //     },
+    //   ]
+    // },
     {
       path: '/',
       name: 'home',
       component: Home
     },
+    ...tagRouter,
+    ...questionRouter,
     {
       path: '/404',
       name: '404',
@@ -40,12 +43,12 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+index.beforeEach((to, from, next) => {
   NProgress.start()
   next()
 })
 
-router.afterEach(() => {
+index.afterEach(() => {
   NProgress.done()
 })
-export default router
+export default index
