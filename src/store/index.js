@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import questions from '@/store/modules/questions'
-import tags from '@/store/modules/tags'
-import answers from '@/store/modules/answers'
+import question from '@/store/modules/question'
+import tag from '@/store/modules/tag'
+import answer from '@/store/modules/answer'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    questions,
-    tags,
-    answers
+    question,
+    tag,
+    answer
   }
 })

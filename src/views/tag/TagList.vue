@@ -15,7 +15,7 @@ export default {
     TagList
   },
   computed: {
-    ...mapState('tags', ['tags'])
+    ...mapState('tag', ['tags'])
   }
 }
 </script>

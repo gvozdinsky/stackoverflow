@@ -22,7 +22,7 @@ export default new Router({
       name: 'tag:list',
       component: TagList,
       beforeEnter: async (to, from, next) => {
-        await store.dispatch('tags/getTags')
+        await store.dispatch('tag/getTags')
         next()
       }
     },
@@ -31,7 +31,7 @@ export default new Router({
       name: 'question:list',
       component: QuestionList,
       beforeEnter: async (to, from, next) => {
-        await store.dispatch('questions/getQuestions', { tag: to.params.tag })
+        await store.dispatch('question/getQuestions', { tag: to.params.tag })
         next()
       }
     },
@@ -42,8 +42,8 @@ export default new Router({
       beforeEnter: async (to, from, next) => {
         const { id: questionId } = to.params
         await Promise.all([
-          store.dispatch('questions/getQuestion', questionId),
-          store.dispatch('answers/getAnswersForQuestion', questionId)
+          store.dispatch('question/getQuestion', questionId),
+          store.dispatch('answer/getAnswersForQuestion', questionId)
         ])
         next()
       }
@@ -54,7 +54,7 @@ export default new Router({
       component: QuestionList,
       props: true,
       beforeEnter: async (to, from, next) => {
-        await store.dispatch('questions/getQuestions', { tag: to.params.tag })
+        await store.dispatch('question/getQuestions', { tag: to.params.tag })
         next()
       }
     }

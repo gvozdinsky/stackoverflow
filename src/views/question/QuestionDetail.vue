@@ -18,8 +18,8 @@ export default {
     AnswerList
   },
   computed: {
-    ...mapState('questions', ['question']),
-    ...mapState('answers', ['answers'])
+    ...mapState('question', ['question']),
+    ...mapState('answer', ['answers'])
   }
 }
 </script>

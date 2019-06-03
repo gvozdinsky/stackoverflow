@@ -21,7 +21,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('questions', ['questions'])
+    ...mapState('question', ['questions'])
   }
 }
 </script>
