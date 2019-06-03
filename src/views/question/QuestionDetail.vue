@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1> {{ question.title }}</h1>
+    <h1 v-html="question.title"></h1>
     <pre>{{ question }}</pre>
     <div>
       <h2>Answers:</h2>
