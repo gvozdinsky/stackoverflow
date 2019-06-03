@@ -21,7 +21,9 @@ export default {
     }
   },
   computed: {
-    ...mapState('question', ['questions'])
+    ...mapState({
+      questions: state => state.question.questions
+    })
   }
 }
 </script>

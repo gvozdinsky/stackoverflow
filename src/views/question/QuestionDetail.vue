@@ -18,8 +18,10 @@ export default {
     AnswerList
   },
   computed: {
-    ...mapState('question', ['question']),
-    ...mapState('answer', ['answers'])
+    ...mapState({
+      question: state => state.question.question,
+      answers: state => state.answer.answers
+    })
   }
 }
 </script>

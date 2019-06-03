@@ -15,7 +15,9 @@ export default {
     TagList
   },
   computed: {
-    ...mapState('tag', ['tags'])
+    ...mapState({
+      tags: state => state.tag.tags
+    })
   }
 }
 </script>
