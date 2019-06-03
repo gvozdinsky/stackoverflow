@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home'
-import NotFound from '@/views/NotFound'
 import NProgress from 'nprogress'
 import questionRouter from './question'
 import tagRouter from './tag'
+
+const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home')
+const NotFound = () => import(/* webpackChunkName: "404" */ '@/views/NotFound')
 
 Vue.use(Router)
 

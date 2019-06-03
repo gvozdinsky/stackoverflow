@@ -1,6 +1,7 @@
 import store from '@/store'
-import TagList from '@/views/tag/TagList'
 import { TAGS_GET_ACTION } from '@/store/actionTypes'
+
+const TagList = () => import(/* webpackChunkName: "tag-list" */ '@/views/tag/TagList')
 
 export default [
   {

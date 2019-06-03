@@ -1,7 +1,8 @@
 import store from '@/store'
-import QuestionList from '@/views/question/QuestionList'
-import QuestionDetail from '@/views/question/QuestionDetail'
 import { ANSWERS_FOR_QUESTION_GET_ACTION, QUESTION_GET_ACTION, QUESTIONS_GET_ACTION } from '@/store/actionTypes'
+
+const QuestionList = () => import(/* webpackChunkName: "question-list" */ '@/views/question/QuestionList')
+const QuestionDetail = () => import(/* webpackChunkName: "question-detail" */ '@/views/question/QuestionDetail')
 
 function is404Error (err) {
   return err.response && err.response.status === 404
