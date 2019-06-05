@@ -3,9 +3,8 @@ import httpClient from './index'
 const path = '/questions'
 
 export default {
-  fetchAll (tag) {
-    const finalPath = tag ? `${path}?tags_like=${tag}` : path
-    return httpClient.get(finalPath)
+  fetchAll (tag = '', perPage = 10, page = 1) {
+    return httpClient.get(`${path}?tags_like=${tag}&_limit=${perPage}&_page=${page}`)
   },
 
   fetchOne (id) {

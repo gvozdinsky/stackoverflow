@@ -1,6 +1,6 @@
 import TagService from '@/services/TagService'
-import { TAGS_SET_MUTATION } from '@/store/mutationTypes'
-import { TAGS_GET_ACTION } from '@/store/actionTypes'
+import { TAGS_SET_MUTATION } from '@/store/constants/mutationTypes'
+import { TAGS_GET_ACTION } from '@/store/constants/actionTypes'
 
 export const INITIAL_STATE = {
   tags: []

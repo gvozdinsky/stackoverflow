@@ -6,12 +6,11 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start:server": "json-server db.json --delay 1000"
+    "start:server": "json-server db.json"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
-    "nprogress": "^0.2.0",
     "standard": "^12.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

@@ -1,6 +1,6 @@
 import AnswerService from '@/services/AnswerService'
-import { ANSWERS_SET_MUTATION } from '@/store/mutationTypes'
-import { ANSWERS_FOR_QUESTION_GET_ACTION } from '@/store/actionTypes'
+import { ANSWERS_SET_MUTATION } from '@/store/constants/mutationTypes'
+import { ANSWERS_FOR_QUESTION_GET_ACTION } from '@/store/constants/actionTypes'
 
 export const INITIAL_STATE = {
   answers: []
