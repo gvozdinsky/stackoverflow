@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <h1 class="mb-4" v-html="question.title"></h1>
-    <v-layout row mb-3>
+    <v-layout row mb-4>
       <v-flex grow>
         <v-card>
           <v-card-title>
@@ -35,10 +35,19 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <div>
-      <h2>Answers:</h2>
-      <AnswerList :answers="answers" />
-    </div>
+
+    <v-flex xs6 class="mb-5">
+      <form @submit.prevent="submit">
+        <v-textarea solo name="answer" label="Your answer" v-model="answerText"/>
+        <v-btn color="primary" large type="submit" :disabled="!answerText" :loading="answerAddLoading">
+          Add answer
+        </v-btn>
+      </form>
+    </v-flex>
+
+    <h2 class="mb-2">Answers ({{ answers.length }}):</h2>
+    <AnswerList :answers="answers" />
+
   </v-container>
 </template>
 
@@ -46,12 +55,24 @@
 import { mapState, mapActions } from 'vuex'
 import AnswerList from '@/components/answer/AnswerList'
 import TagLabel from '@/components/TagLabel'
-import { ANSWERS_FOR_QUESTION_GET_ACTION, QUESTION_GET_ACTION } from '@/store/constants/actionTypes'
+import { ANSWER_ADD_ACTION, ANSWERS_FOR_QUESTION_GET_ACTION, QUESTION_GET_ACTION } from '@/store/constants/actionTypes'
 export default {
   name: 'question-detail',
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   components: {
     AnswerList,
     TagLabel
+  },
+  data() {
+    return {
+      answerText: '',
+      answerAddLoading: false
+    }
   },
   computed: {
     ...mapState({
@@ -65,13 +86,22 @@ export default {
   methods: {
     ...mapActions({
       getQuestion: QUESTION_GET_ACTION,
-      getAnswers: ANSWERS_FOR_QUESTION_GET_ACTION
-    })
+      getAnswers: ANSWERS_FOR_QUESTION_GET_ACTION,
+      addAnswer: ANSWER_ADD_ACTION
+    }),
+    async submit () {
+      const { id, answerText } = this;
+      console.log({id, answerText})
+      this.answerAddLoading = true
+      await this.addAnswer({ questionId: id, answer: { body: answerText }})
+      this.answerAddLoading = false
+      this.answerText = ''
+    }
   },
   created() {
-    const { id } = this.$route.params
+    const { id } = this
     this.getQuestion(id)
-    this.getAnswers(id);
+    this.getAnswers(id)
   }
 }
 </script>

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import question from '@/store/modules/question'
 import tag from '@/store/modules/tag'
 import answer from '@/store/modules/answer'
+import user from '@/store/modules/user'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   modules: {
     question,
     tag,
-    answer
+    answer,
+    user
   }
 })

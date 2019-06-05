@@ -19,6 +19,7 @@ export default [
     path: '/questions/:id',
     name: 'question:detail',
     component: QuestionDetail,
+    props: true
     // beforeEnter: async (to, from, next) => {
     //   try {
     //     const { id: questionId } = to.params
