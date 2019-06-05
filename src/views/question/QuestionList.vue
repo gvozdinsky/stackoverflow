@@ -21,12 +21,12 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider
-
+            v-if="questions.length - 1 "
             :key="index"
           />
         </template>
       </v-list>
-      <div class="py-2 text-xs-center">
+      <div class="py-2 text-xs-center" v-show="pages > 1">
         <v-pagination :length="pages" v-model="currentPage" @input="goTo"/>
       </div>
     </v-card>

@@ -38,7 +38,7 @@ export const actions = {
 export const getters = {
   [QUESTIONS_PAGES_GETTER]: state => {
     const { total, perPage } = state
-    return total / perPage
+    return parseInt(total / perPage)
   }
 }
 
