@@ -8,8 +8,7 @@
     >
       <v-layout>
         <v-flex align-self-center xs1 class="mr-5">
-          <Vote @vote-up="val => vote(answer.id, val + answer.score)"
-                @vote-down="val => vote(answer.id, val + answer.score)">
+          <Vote @vote="val => vote(answer.id, val + answer.score)">
             {{ answer.score }}
           </Vote>
         </v-flex>

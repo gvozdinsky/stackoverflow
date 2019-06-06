@@ -1,6 +1,7 @@
 // question
 export const QUESTIONS_GET_ACTION = 'QUESTIONS_GET'
 export const QUESTION_GET_ACTION = 'QUESTION_GET'
+export const QUESTION_SCORE_UPDATE_ACTION = 'QUESTION_SCORE_UPDATE'
 
 // tag
 export const TAGS_GET_ACTION = 'TAGS_GET'

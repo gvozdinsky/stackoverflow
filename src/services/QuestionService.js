@@ -9,5 +9,8 @@ export default {
 
   fetchOne (id) {
     return httpClient.get(`${path}/${id}`)
+  },
+  updateScore (id, score) {
+    return httpClient.patch(`${path}/${id}`, { score })
   }
 }

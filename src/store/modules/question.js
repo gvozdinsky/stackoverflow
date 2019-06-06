@@ -1,6 +1,6 @@
 import QuestionService from '@/services/QuestionService'
 import { QUESTION_SET_MUTATION, QUESTIONS_SET_MUTATION, QUESTIONS_SET_TOTAL_MUTATION } from '@/store/constants/mutationTypes'
-import { QUESTION_GET_ACTION, QUESTIONS_GET_ACTION } from '@/store/constants/actionTypes'
+import { QUESTION_GET_ACTION, QUESTION_SCORE_UPDATE_ACTION, QUESTIONS_GET_ACTION } from '@/store/constants/actionTypes'
 import { QUESTIONS_PAGES_GETTER } from '@/store/constants/getterTypes'
 
 export const INITIAL_STATE = {
@@ -31,6 +31,10 @@ export const actions = {
   },
   async [QUESTION_GET_ACTION] ({ commit }, id) {
     const { data } = await QuestionService.fetchOne(id)
+    commit(QUESTION_SET_MUTATION, data)
+  },
+  async [QUESTION_SCORE_UPDATE_ACTION] ({ commit }, { id, score }) {
+    const { data } = await QuestionService.updateScore(id, score)
     commit(QUESTION_SET_MUTATION, data)
   }
 }

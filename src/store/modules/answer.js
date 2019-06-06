@@ -1,11 +1,11 @@
 import AnswerService from '@/services/AnswerService'
-import { ANSWER_ADD_MUTATION, ANSWER_SCORE_SET_MUTATION, ANSWERS_SET_MUTATION } from '@/store/constants/mutationTypes'
+import { ANSWER_ADD_MUTATION, ANSWER_SET_MUTATION, ANSWERS_SET_MUTATION } from '@/store/constants/mutationTypes'
 import {
   ANSWER_ADD_ACTION,
   ANSWER_SCORE_UPDATE_ACTION,
   ANSWERS_FOR_QUESTION_GET_ACTION
 } from '@/store/constants/actionTypes'
-import Vue from 'vue';
+import Vue from 'vue'
 
 export const INITIAL_STATE = {
   answers: []
@@ -18,7 +18,7 @@ export const mutations = {
   [ANSWER_ADD_MUTATION] (state, payload) {
     state.answers.push(payload)
   },
-  [ANSWER_SCORE_SET_MUTATION] (state, payload) {
+  [ANSWER_SET_MUTATION] (state, payload) {
     const index = state.answers.findIndex(answer => answer.id === payload.id)
     Vue.set(state.answers, index, payload)
   }
@@ -53,7 +53,7 @@ export const actions = {
   },
   async [ANSWER_SCORE_UPDATE_ACTION] ({ commit }, { id, score }) {
     const { data } = await AnswerService.updateScore(id, score)
-    commit(ANSWER_SCORE_SET_MUTATION, data)
+    commit(ANSWER_SET_MUTATION, data)
   }
 }
 

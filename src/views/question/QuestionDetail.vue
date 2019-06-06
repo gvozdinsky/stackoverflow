@@ -6,38 +6,40 @@
         <v-layout row mb-4>
           <v-flex grow>
             <v-card>
-              <v-card-title>
-                <v-avatar class="mr-2">
-                  <v-img :src="owner.profile_image" />
-                </v-avatar>
-
-                <v-layout column>
-                  <v-flex>
-                    <router-link :to="{ name: 'user:detail', params: { id: owner.user_id }}">
-                      {{ owner.display_name }}
-                    </router-link>
-                    <b>({{ owner.reputation }})</b>
-                  </v-flex>
-
-                  <v-flex>
-                    asked {{ createdAt }}
-                  </v-flex>
-                </v-layout>
-
-              </v-card-title>
-              <v-card-text>
-                <div v-html="body" />
-              </v-card-text>
-
-              <div class="pa-2">
-                <TagLabel v-for="tag in tags" :to="{ name: 'question:tagged', params: { tag }}">
-                  {{ tag }}
-                </TagLabel>
-              </div>
+              <v-layout>
+                <v-flex xs1 align-self-center>
+                  <Vote @vote="value => vote(question.id, score + value )">{{ score }}</Vote>
+                </v-flex>
+                <v-flex xs11>
+                  <v-card-title>
+                    <v-avatar class="mr-2">
+                      <v-img :src="owner.profile_image" />
+                    </v-avatar>
+                    <v-layout column>
+                      <v-flex>
+                        <router-link :to="{ name: 'user:detail', params: { id: owner.user_id }}">
+                          {{ owner.display_name }}
+                        </router-link>
+                        <b>({{ owner.reputation }})</b>
+                      </v-flex>
+                      <v-flex>
+                        asked {{ createdAt }}
+                      </v-flex>
+                    </v-layout>
+                  </v-card-title>
+                  <v-card-text>
+                    <div v-html="body" />
+                  </v-card-text>
+                  <div class="pa-2">
+                    <TagLabel v-for="tag in tags" :to="{ name: 'question:tagged', params: { tag }}">
+                      {{ tag }}
+                    </TagLabel>
+                  </div>
+                </v-flex>
+              </v-layout>
             </v-card>
           </v-flex>
         </v-layout>
-
         <v-flex xs6 class="mb-5">
           <form @submit.prevent="submit">
             <v-textarea solo name="answer" label="Your answer" v-model="answerText"/>
@@ -46,7 +48,6 @@
             </v-btn>
           </form>
         </v-flex>
-
         <h2 class="mb-2">Answers ({{ answers.length }}):</h2>
         <AnswerList :answers="answers" />
       </v-layout>
@@ -59,7 +60,13 @@ import { mapState, mapActions } from 'vuex'
 import AnswerList from '@/components/answer/AnswerList'
 import TagLabel from '@/components/TagLabel'
 import Loader from '@/components/Loader'
-import { ANSWER_ADD_ACTION, ANSWERS_FOR_QUESTION_GET_ACTION, QUESTION_GET_ACTION } from '@/store/constants/actionTypes'
+import Vote from '@/components/Vote'
+import {
+  ANSWER_ADD_ACTION,
+  ANSWERS_FOR_QUESTION_GET_ACTION,
+  QUESTION_GET_ACTION,
+  QUESTION_SCORE_UPDATE_ACTION
+} from '@/store/constants/actionTypes'
 
 export default {
   name: 'question-detail',
@@ -72,7 +79,8 @@ export default {
   components: {
     AnswerList,
     TagLabel,
-    Loader
+    Loader,
+    Vote
   },
   data() {
     return {
@@ -103,13 +111,17 @@ export default {
     },
     createdAt() {
       return new Date(this.question?.creation_date * 1000).toLocaleString()
+    },
+    score () {
+      return this.question?.score
     }
   },
   methods: {
     ...mapActions({
       getQuestion: QUESTION_GET_ACTION,
       getAnswers: ANSWERS_FOR_QUESTION_GET_ACTION,
-      addAnswer: ANSWER_ADD_ACTION
+      addAnswer: ANSWER_ADD_ACTION,
+      updateQuestionScore: QUESTION_SCORE_UPDATE_ACTION
     }),
     async submit () {
       const { id, answerText } = this;
@@ -117,6 +129,9 @@ export default {
       await this.addAnswer({ questionId: id, answer: { body: answerText }})
       this.loaders.answerAdd = false
       this.answerText = ''
+    },
+    vote (id, score) {
+      this.updateQuestionScore({ id, score})
     }
   },
   async created() {
