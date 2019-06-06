@@ -8,5 +8,8 @@ export default {
   },
   addAnswer (questionId, data) {
     return httpClient.post(`${path}`, data)
+  },
+  updateScore (id, score) {
+    return httpClient.patch(`${path}/${id}`, { score })
   }
 }
