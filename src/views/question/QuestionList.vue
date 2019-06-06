@@ -1,40 +1,41 @@
 <template>
   <v-container fluid fill-height>
-    <Loader :loading="loading">
-      <v-layout column>
-        <h1 class="mb-4">Questions
-          <template v-if="tag">
-            for <v-chip small color="primary" label text-color="white">{{ tag }}</v-chip>
-          </template>
-        </h1>
-        <v-card>
-          <v-list three-line>
-            <template v-for="(question, index) in questions">
-              <v-list-tile :key="question.id">
-                <v-list-tile-content>
-                  <v-list-tile-title class="mb-1 title">
-                    <router-link :to="{ name: 'question:detail', params: { id: question.id }}" v-html="question.title" />
-                  </v-list-tile-title>
-                  <v-list-tile-sub-title>
-                    <router-link v-for="tag in question.tags" :to="{ name: 'question:tagged', params: { tag } }">
-                      <TagLabel>{{ tag }}</TagLabel>
-                    </router-link>
-                  </v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-divider
-                v-if="questions.length - 1 "
-                :key="index"
-              />
-            </template>
-          </v-list>
-          <div class="py-2 text-xs-center" v-show="pages > 1">
-            <v-pagination :length="pages" v-model="currentPage" @input="goTo"/>
-          </div>
-        </v-card>
-      </v-layout>
-    </Loader>
-
+    <v-layout column>
+      <h1 class="mb-4">Questions
+        <template v-if="tag">
+          for <v-chip small color="primary" label text-color="white">{{ tag }}</v-chip>
+        </template>
+      </h1>
+      <v-card min-height="500px">
+        <v-layout column fill-height>
+          <Loader :loading="loading">
+            <v-list three-line>
+              <template v-for="(question, index) in questions">
+                <v-list-tile :key="question.id">
+                  <v-list-tile-content>
+                    <v-list-tile-title class="mb-1 title">
+                      <router-link :to="{ name: 'question:detail', params: { id: question.id }}" v-html="question.title" />
+                    </v-list-tile-title>
+                    <v-list-tile-sub-title>
+                      <router-link v-for="tag in question.tags" :to="{ name: 'question:tagged', params: { tag } }">
+                        <TagLabel>{{ tag }}</TagLabel>
+                      </router-link>
+                    </v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider
+                  v-if="questions.length - 1 "
+                  :key="index"
+                />
+              </template>
+            </v-list>
+            <div class="py-2 text-xs-center" v-show="pages > 1">
+              <v-pagination :length="pages" v-model="currentPage" @input="goTo"/>
+            </div>
+          </Loader>
+        </v-layout>
+      </v-card>
+    </v-layout>
   </v-container>
 </template>
 
