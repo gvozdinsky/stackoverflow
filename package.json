@@ -13,11 +13,14 @@
     "core-js": "^2.6.5",
     "standard": "^12.0.1",
     "vue": "^2.6.10",
+    "vue-fragment": "^1.5.1",
     "vue-router": "^3.0.3",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
