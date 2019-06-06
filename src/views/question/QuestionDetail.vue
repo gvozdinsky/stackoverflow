@@ -13,7 +13,7 @@
 
                 <v-layout column>
                   <v-flex>
-                    <router-link :to="'/user/1'">
+                    <router-link :to="{ name: 'user:detail', params: { id: q.ownerId }}">
                       {{ q.ownerName }}
                     </router-link>
                     <b>({{ q.ownerReputation }})</b>
@@ -96,6 +96,7 @@ export default {
         ownerProfileImage: question?.owner?.profile_image,
         ownerName: question?.owner?.display_name,
         ownerReputation: question?.owner?.reputation,
+        ownerId: question?.owner.user_id,
         createdAt: new Date(this.question?.creation_date * 1000).toLocaleString()
       }
     }
@@ -108,7 +109,6 @@ export default {
     }),
     async submit () {
       const { id, answerText } = this;
-      console.log({id, answerText})
       this.loaders.answerAdd = true
       await this.addAnswer({ questionId: id, answer: { body: answerText }})
       this.loaders.answerAdd = false
