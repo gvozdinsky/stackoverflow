@@ -5,9 +5,9 @@
         <h1 class="mb-4" v-html="title"></h1>
         <v-layout row mb-4>
           <v-flex grow>
-            <v-card class="pa-3">
+            <v-card>
               <v-layout>
-                <v-flex xs1 align-self-start>
+                <v-flex xs1 align-self-start class="mt-3">
                   <Vote @vote="value => vote(question.id, score + value )">{{ score }}</Vote>
                 </v-flex>
                 <v-flex xs11>
