@@ -11,7 +11,9 @@ yarn run serve
 ```
 
 ### Run json-server
+```
 yarn start:server
+```
 
 ### Compiles and minifies for production
 ```
