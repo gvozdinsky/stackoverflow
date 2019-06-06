@@ -7,17 +7,21 @@
           <span class="font-weight-bold">overflow</span>
         </router-link>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-toolbar-items>
-        <v-btn flat :to="{ name: 'question:list' }">Questions</v-btn>
-        <v-btn flat :to="{ name: 'tag:list' }">Tags</v-btn>
+        <v-btn flat :to="{ name: 'question:list' }">
+          Questions
+        </v-btn>
+        <v-btn flat :to="{ name: 'tag:list' }">
+          Tags
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout>
-          <v-flex grow  >
-            <router-view></router-view>
+          <v-flex grow>
+            <router-view />
           </v-flex>
         </v-layout>
       </v-container>

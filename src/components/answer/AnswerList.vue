@@ -48,7 +48,7 @@ import { mapActions } from 'vuex'
 import { ANSWER_SCORE_UPDATE_ACTION } from '@/store/constants/actionTypes'
 
 export default {
-  name: 'answer-list',
+  name: 'AnswerList',
   components: {
     Vote
   },
@@ -56,11 +56,6 @@ export default {
     answers: {
       required: true,
       type: Array
-    }
-  },
-  computed: {
-    createdAt () {
-      return
     }
   },
   methods: {

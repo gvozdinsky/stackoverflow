@@ -1,15 +1,15 @@
 <template>
   <fragment>
-    <v-layout align-center justify-center v-if="loading">
+    <v-layout v-if="loading" align-center justify-center>
       <v-progress-circular size="80" color="primary" indeterminate />
     </v-layout>
-    <slot v-if="!loading"></slot>
+    <slot v-if="!loading" />
   </fragment>
 </template>
 
 <script>
 export default {
-  name: 'loader',
+  name: 'Loader',
   props: {
     loading: {
       type: Boolean,

@@ -5,7 +5,6 @@ import tagRouter from './tag'
 import userRouter from './user'
 import DefaultLayout from '@/components/layouts/Default'
 
-const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home')
 const NotFound = () => import(/* webpackChunkName: "404" */ '@/views/NotFound')
 
 Vue.use(Router)
@@ -40,6 +39,5 @@ const index = new Router({
     }
   ]
 })
-
 
 export default index

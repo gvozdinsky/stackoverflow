@@ -2,13 +2,15 @@
   <v-container fluid fill-height>
     <Loader :loading="loaders.question && loaders.answers">
       <v-layout column>
-        <h1 class="mb-4" v-html="title"></h1>
+        <h1 class="mb-4" v-html="title" />
         <v-layout row mb-4>
           <v-flex grow>
             <v-card>
               <v-layout>
                 <v-flex xs1 align-self-start class="mt-3">
-                  <Vote @vote="value => vote(question.id, score + value )">{{ score }}</Vote>
+                  <Vote @vote="value => vote(question.id, score + value )">
+                    {{ score }}
+                  </Vote>
                 </v-flex>
                 <v-flex xs11>
                   <v-card-title>
@@ -31,7 +33,7 @@
                     <div v-html="body" />
                   </v-card-text>
                   <div class="pa-2">
-                    <TagLabel v-for="tag in tags" :to="{ name: 'question:tagged', params: { tag }}">
+                    <TagLabel v-for="tag in tags" :key="tag" :to="{ name: 'question:tagged', params: { tag }}">
                       {{ tag }}
                     </TagLabel>
                   </div>
@@ -42,13 +44,15 @@
         </v-layout>
         <v-flex xs6 class="mb-5">
           <form @submit.prevent="submit">
-            <v-textarea solo name="answer" label="Your answer" v-model="answerText"/>
+            <v-textarea v-model="answerText" solo name="answer" label="Your answer" />
             <v-btn color="primary" large type="submit" :disabled="!answerText" :loading="loaders.answerAdd">
               Add answer
             </v-btn>
           </form>
         </v-flex>
-        <h2 class="mb-2">Answers ({{ answers.length }}):</h2>
+        <h2 class="mb-2">
+          Answers ({{ answers.length }}):
+        </h2>
         <AnswerList :answers="answers" />
       </v-layout>
     </Loader>
@@ -69,20 +73,20 @@ import {
 } from '@/store/constants/actionTypes'
 
 export default {
-  name: 'question-detail',
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
+  name: 'QuestionDetail',
   components: {
     AnswerList,
     TagLabel,
     Loader,
     Vote
   },
-  data() {
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+  data () {
     return {
       answerText: '',
       loaders: {
@@ -109,32 +113,14 @@ export default {
     owner () {
       return this.question?.owner || {}
     },
-    createdAt() {
+    createdAt () {
       return new Date(this.question?.creation_date * 1000).toLocaleString()
     },
     score () {
       return this.question?.score
     }
   },
-  methods: {
-    ...mapActions({
-      getQuestion: QUESTION_GET_ACTION,
-      getAnswers: ANSWERS_FOR_QUESTION_GET_ACTION,
-      addAnswer: ANSWER_ADD_ACTION,
-      updateQuestionScore: QUESTION_SCORE_UPDATE_ACTION
-    }),
-    async submit () {
-      const { id, answerText } = this;
-      this.loaders.answerAdd = true
-      await this.addAnswer({ questionId: id, answer: { body: answerText }})
-      this.loaders.answerAdd = false
-      this.answerText = ''
-    },
-    vote (id, score) {
-      this.updateQuestionScore({ id, score})
-    }
-  },
-  async created() {
+  async created () {
     const { id } = this
     this.loaders.question = true
     this.loaders.answers = true
@@ -144,6 +130,24 @@ export default {
     ])
     this.loaders.question = false
     this.loaders.answers = false
+  },
+  methods: {
+    ...mapActions({
+      getQuestion: QUESTION_GET_ACTION,
+      getAnswers: ANSWERS_FOR_QUESTION_GET_ACTION,
+      addAnswer: ANSWER_ADD_ACTION,
+      updateQuestionScore: QUESTION_SCORE_UPDATE_ACTION
+    }),
+    async submit () {
+      const { id, answerText } = this
+      this.loaders.answerAdd = true
+      await this.addAnswer({ questionId: id, answer: { body: answerText } })
+      this.loaders.answerAdd = false
+      this.answerText = ''
+    },
+    vote (id, score) {
+      this.updateQuestionScore({ id, score })
+    }
   }
 }
 </script>

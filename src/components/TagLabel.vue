@@ -3,13 +3,13 @@
     <template v-if="to">
       <router-link :to="to" class="d-inline-block link">
         <v-chip color="primary" text-color="white" small label>
-          <slot></slot>
+          <slot />
         </v-chip>
       </router-link>
     </template>
     <template v-else>
       <v-chip color="primary" text-color="white" small label>
-        <slot></slot>
+        <slot />
       </v-chip>
     </template>
   </fragment>
@@ -17,10 +17,11 @@
 
 <script>
 export default {
-  name: 'tag-label',
+  name: 'TagLabel',
   props: {
     to: {
-      type: Object
+      type: Object,
+      default: null
     }
   }
 }

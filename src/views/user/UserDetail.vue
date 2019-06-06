@@ -5,10 +5,14 @@
         <v-flex xs2>
           <v-card class="py-2">
             <div class="text-xs-center">
-              <div class="mb-1"><b>{{ name }}</b></div>
-              <div class="mb-2"><i v-html="location" /></div>
+              <div class="mb-1">
+                <b>{{ name }}</b>
+              </div>
+              <div class="mb-2">
+                <i v-html="location" />
+              </div>
             </div>
-            <v-img :src="image" height="200px" contain/>
+            <v-img :src="image" height="200px" contain />
             <div class="mt-1 text-xs-center">
               <div>Reputation: <b>{{ reputation }}</b></div>
               <div>
@@ -19,7 +23,7 @@
                   {{ badges.silver }}
                 </v-chip>
                 <v-chip label small color="orange lighten-3">
-                  {{ badges.bronze}}
+                  {{ badges.bronze }}
                 </v-chip>
               </div>
             </div>
@@ -36,7 +40,7 @@ import { USER_GET_ACTION } from '@/store/constants/actionTypes'
 import Loader from '@/components/Loader'
 
 export default {
-  name: 'user-detail',
+  name: 'UserDetail',
   components: {
     Loader
   },
@@ -71,15 +75,15 @@ export default {
       return this.userDetail?.location
     }
   },
+  async created () {
+    this.loading = true
+    await this.getUser(this.id)
+    this.loading = false
+  },
   methods: {
     ...mapActions({
       getUser: USER_GET_ACTION
     })
-  },
-  async mounted () {
-    this.loading = true
-    await this.getUser(this.id)
-    this.loading = false
   }
 }
 </script>

@@ -4,7 +4,7 @@
       &#x25b2;
     </div>
     <div class="title mb-3">
-      <slot></slot>
+      <slot />
     </div>
     <div class="vote-btn display-1 grey--text text--darken-1" @click="$emit('vote', -1)">
       &#x25bc;
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'vote'
+  name: 'Vote'
 }
 </script>
 
