@@ -21,7 +21,7 @@ const index = new Router({
         {
           path: '/',
           name: 'home',
-          component: Home
+          redirect: { name: 'question:list' }
         },
         ...tagRouter,
         ...questionRouter,
