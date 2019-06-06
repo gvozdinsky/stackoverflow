@@ -7,7 +7,7 @@
       class="mb-3 py-3 px-3"
     >
       <v-layout>
-        <v-flex align-self-center xs1>
+        <v-flex align-self-start xs1>
           <Vote @vote="val => vote(answer.id, val + answer.score)">
             {{ answer.score }}
           </Vote>
