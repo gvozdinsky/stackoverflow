@@ -1,3 +1,7 @@
+import { USER_GET_ACTION } from '@/store/constants/actionTypes'
+import UserService from '@/services/UserService'
+import { USER_DETAIL_SET_MUTATION } from '@/store/constants/mutationTypes'
+
 export const INITIAL_STATE = {
   user: {
     badge_counts: {
@@ -21,9 +25,25 @@ export const INITIAL_STATE = {
     profile_image: 'https://www.gravatar.com/avatar/843c15ce3c7df9c796af4f99be88d40d?s=128&d=identicon&r=PG&f=1',
     display_name: 'Victor',
     id: 3261825
+  },
+  userDetail: null
+}
+
+export const mutations = {
+  [USER_DETAIL_SET_MUTATION] (state, payload) {
+    state.userDetail = payload
+  }
+}
+
+export const actions = {
+  async [USER_GET_ACTION] ({ commit }, id) {
+    const { data } = await UserService.fetchOne(id)
+    commit(USER_DETAIL_SET_MUTATION, data)
   }
 }
 
 export default {
-  state: INITIAL_STATE
+  state: INITIAL_STATE,
+  actions,
+  mutations
 }

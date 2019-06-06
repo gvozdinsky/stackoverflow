@@ -9,3 +9,6 @@ export const TAGS_SET_MUTATION = 'TAGS_SET'
 // answer
 export const ANSWERS_SET_MUTATION = 'ANSWERS_SET'
 export const ANSWER_ADD_MUTATION = 'ANSWER_ADD'
+
+// user
+export const USER_DETAIL_SET_MUTATION = 'USER_DETAIL_SET'

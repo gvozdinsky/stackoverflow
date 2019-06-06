@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import questionRouter from './question'
 import tagRouter from './tag'
+import userRouter from './user'
 import DefaultLayout from '@/components/layouts/Default'
 
 const Home = () => import(/* webpackChunkName: "home" */ '@/views/Home')
@@ -24,6 +25,7 @@ const index = new Router({
         },
         ...tagRouter,
         ...questionRouter,
+        ...userRouter,
         {
           path: '/404',
           name: '404',
