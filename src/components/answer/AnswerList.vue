@@ -4,7 +4,7 @@
       v-for="answer in answers"
       :key="answer.id"
       :class="{ 'light-green lighten-3': answer.is_accepted }"
-      class="mb-3 py-3 px-3"
+      class="mb-3 py-3"
     >
       <v-layout>
         <v-flex align-self-start xs1>
