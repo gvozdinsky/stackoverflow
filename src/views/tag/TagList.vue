@@ -1,39 +1,27 @@
 <template>
   <v-container fluid fill-height>
-    <Loader :loading="loading">
       <v-layout column>
-
         <div>
           <h1 class="mb-4">Tags</h1>
         </div>
-
         <div>
           <v-text-field label="Search for tags" solo clearable v-model="searchText"/>
         </div>
-<!--        <v-layout>-->
-<!--          <v-flex xs3>-->
-<!--            <v-text-field label="Search for tags" solo clearable v-model="searchText"/>-->
-<!--          </v-flex>-->
-<!--        </v-layout>-->
+        <v-card class="grow">
+          <v-layout py-3 px-3 row wrap fill-height>
+            <Loader :loading="loading">
+              <v-flex xs3 v-for="tag in filteredTags" :key="tag.name">
+                <TagLabel :to="{ name: 'question:tagged', params: { tag: tag.name}}"> {{ tag.name }} </TagLabel>
+                <span> x {{ tag.count }}</span>
+              </v-flex>
+              <p v-show="!filteredTags.length">
+                There is no such tag
+              </p>
+            </Loader>
+          </v-layout>
 
-
-          <div>
-            <v-card>
-              <v-layout py-3 px-3 row wrap>
-                <v-flex xs3 v-for="tag in filteredTags" :key="tag.name">
-                  <router-link :to="{ name: 'question:tagged', params: { tag: tag.name}}">
-                    <TagLabel> {{ tag.name }} </TagLabel>
-                  </router-link>
-                  <span> x {{ tag.count }}</span>
-                </v-flex>
-                <p v-show="!filteredTags.length">
-                  There is no such tag
-                </p>
-              </v-layout>
-            </v-card>
-          </div>
-        </v-layout>
-    </Loader>
+        </v-card>
+      </v-layout>
   </v-container>
 </template>
 

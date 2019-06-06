@@ -3,10 +3,16 @@
     <v-layout column>
       <h1 class="mb-4">Questions
         <template v-if="tag">
-          for <v-chip small color="primary" label text-color="white">{{ tag }}</v-chip>
+          for <v-chip small color="primary"
+                      label
+                      text-color="white"
+                      close
+                      @input="removeFilter"
+                      v-model="tagFilter"
+        >{{ tag }}</v-chip>
         </template>
       </h1>
-      <v-card min-height="500px">
+      <v-card class="grow">
         <v-layout column fill-height>
           <Loader :loading="loading">
             <v-list three-line>
@@ -17,9 +23,9 @@
                       <router-link :to="{ name: 'question:detail', params: { id: question.id }}" v-html="question.title" />
                     </v-list-tile-title>
                     <v-list-tile-sub-title>
-                      <router-link v-for="tag in question.tags" :to="{ name: 'question:tagged', params: { tag } }">
-                        <TagLabel>{{ tag }}</TagLabel>
-                      </router-link>
+                        <TagLabel v-for="tag in question.tags" :to="{ name: 'question:tagged', params: { tag } }">
+                          {{ tag }}
+                        </TagLabel>
                     </v-list-tile-sub-title>
                   </v-list-tile-content>
                 </v-list-tile>
@@ -61,7 +67,8 @@ export default {
   data() {
     return {
       currentPage: parseInt(this.$route.query.page || 1),
-      loading: false
+      loading: false,
+      tagFilter: true
     }
   },
   computed: {
@@ -75,6 +82,10 @@ export default {
   methods: {
     goTo (page) {
       this.$router.push({ name: 'question:list', query: { page }})
+    },
+    removeFilter() {
+      this.$router.push({ name: 'question:list' })
+      this.tagFilter = true
     },
     ...mapActions({
       fetchQuestions: QUESTIONS_GET_ACTION

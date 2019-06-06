@@ -2,35 +2,35 @@
   <v-container fluid fill-height>
     <Loader :loading="loaders.question && loaders.answers">
       <v-layout column>
-        <h1 class="mb-4" v-html="q.title"></h1>
+        <h1 class="mb-4" v-html="title"></h1>
         <v-layout row mb-4>
           <v-flex grow>
             <v-card>
               <v-card-title>
                 <v-avatar class="mr-2">
-                  <v-img :src="q.ownerProfileImage" />
+                  <v-img :src="owner.profile_image" />
                 </v-avatar>
 
                 <v-layout column>
                   <v-flex>
-                    <router-link :to="{ name: 'user:detail', params: { id: q.ownerId }}">
-                      {{ q.ownerName }}
+                    <router-link :to="{ name: 'user:detail', params: { id: owner.user_id }}">
+                      {{ owner.display_name }}
                     </router-link>
-                    <b>({{ q.ownerReputation }})</b>
+                    <b>({{ owner.reputation }})</b>
                   </v-flex>
 
                   <v-flex>
-                    asked {{ q.createdAt }}
+                    asked {{ createdAt }}
                   </v-flex>
                 </v-layout>
 
               </v-card-title>
               <v-card-text>
-                <div v-html="question.body" />
+                <div v-html="body" />
               </v-card-text>
 
               <div class="pa-2">
-                <TagLabel v-for="tag in  question.tags" >
+                <TagLabel v-for="tag in tags" :to="{ name: 'question:tagged', params: { tag }}">
                   {{ tag }}
                 </TagLabel>
               </div>
@@ -89,16 +89,20 @@ export default {
       question: state => state.question.question,
       answers: state => state.answer.answers
     }),
-    q() {
-      const { question } = this
-      return {
-        title: question?.title,
-        ownerProfileImage: question?.owner?.profile_image,
-        ownerName: question?.owner?.display_name,
-        ownerReputation: question?.owner?.reputation,
-        ownerId: question?.owner.user_id,
-        createdAt: new Date(this.question?.creation_date * 1000).toLocaleString()
-      }
+    title () {
+      return this.question?.title
+    },
+    body () {
+      return this.question?.body
+    },
+    tags () {
+      return this.question.tags
+    },
+    owner () {
+      return this.question?.owner || {}
+    },
+    createdAt() {
+      return new Date(this.question?.creation_date * 1000).toLocaleString()
     }
   },
   methods: {
